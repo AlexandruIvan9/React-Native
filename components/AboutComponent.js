@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Text } from 'react-native';
-import { Card } from 'react-native-elements';
-import { FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { PARTNERS } from '../shared/partners';
+import { ScrollView, Text, FlatList } from 'react-native';
+import { Card, ListItem } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+
+const mapStateToProps = state => {
+    return {
+        partners: state.partners
+    };
+};
 
 class About extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            partners: PARTNERS
-        };
-    }
     
     static navigationOptions = {
         title: "About Us"
@@ -26,7 +24,7 @@ class About extends Component {
                     title={item.name}
                     subtitle={item.description}
                     //onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
-                    leftAvatar={{ source: require('./images/bootstrap-logo.png')}}
+                    leftAvatar={{source: {uri: baseUrl + item.image}}}
                 />
             );
         };
@@ -37,16 +35,16 @@ class About extends Component {
                 </Card>
                 
                 <Card title="Community Partners " wrapperStyle={{margin: 20}}>
-                    <FlatList
-                        data={this.state.partners}
+                <FlatList 
+                        data={this.props.partners.partners}
                         renderItem={renderPartner}
                         keyExtractor={item => item.id.toString()}
-                    />
+                />
                 </Card>
             </ScrollView>
         );
     }
 }
 
-export default About;
+export default connect(mapStateToProps)(About);
 
