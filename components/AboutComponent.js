@@ -6,8 +6,6 @@ import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { PARTNERS } from '../shared/partners';
 
-// ----- MISSION FUNCTIONAL COMPONENT ----- //
-// Used on line 45, below 👇
 const Mission = () => {
     return (
         <Card title="Our Mission" wrapperStyle={{margin: 20}}>
@@ -15,7 +13,6 @@ const Mission = () => {
         </Card>
     )
 }
-// ----- ----- ----- ----- ----- ----- ----- //
 
 class About extends Component {
     constructor (props) {
