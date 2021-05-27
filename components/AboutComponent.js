@@ -5,6 +5,7 @@ import { Card } from 'react-native-elements';
 import { FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { PARTNERS } from '../shared/partners';
+import * as Animatable from 'react-native-animatable';
 
 const Mission = () => {
     return (
@@ -36,17 +37,32 @@ class About extends Component {
                 />
             );
         };
+        if (this.props.partners.errMess) {
+            return (
+                <ScrollView>
+                    <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                        <Mission />
+                        <Card
+                            title="Community Partners">
+                            <Text>{this.props.partners.errMess}</Text>
+                        </Card>
+                    </Animatable.View>
+                </ScrollView>
+            );
+        }
         return (
             <ScrollView>
-                <Mission/>
-                <Card title="Community Partners " wrapperStyle={{margin: 20}}>
-                    <FlatList
-                        data={this.state.partners}
-                        renderItem={renderPartner}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                </Card>
-
+                <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
+                    <Mission />
+                    <Card
+                        title="Community Partners">
+                        <FlatList
+                            data={this.props.partners.partners}
+                            renderItem={renderPartner}
+                            keyExtractor={item=>item.id.toString()}
+                        />
+                    </Card>
+                </Animatable.View>
             </ScrollView>
         );
     }
